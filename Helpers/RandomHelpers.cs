@@ -1,8 +1,9 @@
-using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.Utilities;
 
-namespace FishUtils;
+namespace FishUtils.Helpers;
 
 public static class RandomHelpers
 {

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ModLoader;
 
-namespace FishUtils;
+namespace FishUtils.Helpers;
 
 public class DustHelpers
 {

@@ -1,4 +1,6 @@
-namespace FishUtils;
+using Terraria;
+
+namespace FishUtils.Helpers;
 
 public static class PlayerHelpers
 {

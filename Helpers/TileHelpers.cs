@@ -1,4 +1,7 @@
-namespace FishUtils;
+using Microsoft.Xna.Framework;
+using Terraria;
+
+namespace FishUtils.Helpers;
 
 public static class TileHelpers
 {
