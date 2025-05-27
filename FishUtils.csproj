@@ -1,16 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-	<!-- Import tModLoader mod properties -->
-	<Import Project="..\..\tModLoader.targets" />
-
-	<!-- General -->
+	<Import Project="..\tModLoader.targets" Condition="Exists('..\tModLoader.targets')" />
+	<Import Project="..\..\tModLoader.targets" Condition="Exists('..\..\tModLoader.targets')"/>
 	<PropertyGroup>
-		
+		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
-
-	<!-- References -->
-	<ItemGroup>
-		
-	</ItemGroup>
-
 </Project>

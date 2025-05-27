@@ -1,0 +1,79 @@
+using System.Collections.Generic;
+
+namespace FishUtils;
+
+public static class NPCHelpers
+{
+	/// <summary>
+	/// Finds all the NPCs within a certain range of a position.
+	/// </summary>
+	/// <param name="range">The range to search within.</param>
+	/// <param name="worldPos">The position to search around.</param>
+	/// <param name="careAboutCollision">Whether or not to care about collision between the NPC and the worldPos.</param>
+	/// <param name="ignoredNPCs">A list of NPC IDs to ignore. If null, no NPCs are ignored.</param>
+	/// <returns>A list of all the NPCs found.</returns>
+	public static List<NPC> FindNearbyNPCs(float range, Vector2 worldPos, bool careAboutCollision = false, List<int> ignoredNPCs = null) {
+		List<NPC> npcs = new(Main.maxNPCs);
+		ignoredNPCs ??= [];
+
+		foreach (NPC npc in Main.ActiveNPCs) {
+			if (npc.WithinRange(worldPos, range) && !ignoredNPCs.Contains(npc.whoAmI) && npc.CanBeChasedBy()) {
+				if (!careAboutCollision || CollisionHelpers.CanHit(npc, worldPos)) {
+					npcs.Add(npc);
+				}
+			}
+		}
+
+		return npcs;
+	}
+	
+	/// <summary>
+	/// Finds a random NPC within a certain range of a position.
+	/// </summary>
+	/// <param name="range">The range to search within.</param>
+	/// <param name="worldPos">The position to search around.</param>
+	/// <param name="careAboutCollision">Whether or not to care about collision between the NPC and the worldPos.</param>
+	/// <param name="ignoredNPCs">A list of NPC IDs to ignore. If null, no NPCs are ignored.</param>
+	/// <returns>A random NPC found, or null if none exist.</returns>
+	public static NPC FindRandomNearbyNPC(float range, Vector2 worldPos, bool careAboutCollision = false, List<int> ignoredNPCs = null) {
+		ignoredNPCs ??= [];
+
+		List<NPC> npcs = FindNearbyNPCs(range, worldPos, careAboutCollision, ignoredNPCs);
+		if (npcs.Count > 0) {
+			return Main.rand.Next(npcs);
+		}
+
+		return null;
+	}
+	
+	/// <summary>
+	/// Finds the closest NPC within a certain range of a position.
+	/// </summary>
+	/// <param name="range">The range to search within.</param>
+	/// <param name="worldPos">The position to search around.</param>
+	/// <param name="checkCollision">Whether or not to care about collision between the NPC and the worldPos.</param>
+	/// <param name="ignoredNPCs">A list of NPC IDs to ignore. If null, no NPCs are ignored.</param>
+	/// <returns>The closest NPC found, or null if none exist.</returns>
+	public static NPC FindClosestNPC(float range, Vector2 worldPos, bool checkCollision = true, List<int> ignoredNPCs = null) {
+		ignoredNPCs ??= [];
+		NPC closestNpc = null;
+		float closestNpcDistance = float.PositiveInfinity;
+
+		foreach (NPC npc in Main.ActiveNPCs) {
+			float distance = Vector2.Distance(npc.Center, worldPos);
+			if (!npc.CanBeChasedBy() || distance > range || distance > closestNpcDistance ||
+				ignoredNPCs.Contains(npc.whoAmI)) {
+				continue;
+			}
+
+			if (checkCollision && !CollisionHelpers.CanHit(npc, worldPos)) {
+				continue;
+			}
+
+			closestNpc = npc;
+			closestNpcDistance = distance;
+		}
+
+		return closestNpc;
+	}
+}
