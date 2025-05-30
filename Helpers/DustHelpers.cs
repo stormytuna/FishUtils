@@ -90,9 +90,11 @@ public class DustHelpers
 	/// <param name="sway">The amount of randomness in the path of the lightning bolt.</param>
 	/// <param name="jagednessNumerator">A value controlling the jaggedness of the path.
 	/// Higher values result in a more jagged appearance. [0..2] is advised</param>
-	public static void MakeLightningDust(Vector2 source, Vector2 dest, int dustId, float scale, float sway = 80f,
+	public static List<Dust> MakeLightningDust(Vector2 source, Vector2 dest, int dustId, float scale, float sway = 80f,
 		float jagednessNumerator = 1f) {
 		List<Vector2> dustPoints = MathHelpers.CreateLightningBolt(source, dest, sway, jagednessNumerator);
+		
+		List<Dust> dustList = new(dustPoints.Count);
 
 		for (int i = 1; i < dustPoints.Count; i++) {
 			Vector2 start = dustPoints[i - 1];
@@ -106,8 +108,11 @@ public class DustHelpers
 				Dust d = Dust.NewDustPerfect(dustPosition, dustId, Scale: scale);
 				d.noGravity = true;
 				d.velocity = Main.rand.NextVector2Circular(0.3f, 0.3f);
+				dustList.Add(d);
 			}
 		}
+		
+		return dustList;
 	}
 
 	/// <summary>
