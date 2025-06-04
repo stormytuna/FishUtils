@@ -78,4 +78,20 @@ public static class NPCHelpers
 
 		return closestNpc;
 	}
+
+	/// <summary>
+	/// Checks if there is an active boss NPC or an ongoing invasion.
+	/// </summary>
+	/// <returns>true if there is an active boss NPC or an ongoing invasion, false otherwise.</returns>
+	public static bool AnyActiveBossOrInvasion() {
+		if (Main.CurrentFrameFlags.AnyActiveBossNPC) {
+			return true;
+		}
+
+		if (Main.invasionType != InvasionID.None) {
+			return true;
+		}
+		
+		return false;
+	}
 }
