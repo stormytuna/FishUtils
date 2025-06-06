@@ -94,4 +94,13 @@ public static class NPCHelpers
 		
 		return false;
 	}
+
+	/// <summary>
+	/// Determines whether the specified NPC is considered a boss.
+	/// </summary>
+	/// <param name="npc">The NPC to check.</param>
+	/// <returns>true if the NPC is a boss; otherwise, false.</returns>
+	public static bool CountsAsBoss(this NPC npc) {
+		return npc.boss || NPCID.Sets.DangerThatPreventsOtherDangers[npc.type];
+	}
 }
