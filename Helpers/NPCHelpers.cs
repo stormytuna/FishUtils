@@ -103,4 +103,80 @@ public static class NPCHelpers
 	public static bool CountsAsBoss(this NPC npc) {
 		return npc.boss || NPCID.Sets.DangerThatPreventsOtherDangers[npc.type];
 	}
+	
+	/// <summary>
+	/// Determines whether the specified NPC is a worm.
+	/// </summary>
+	/// <param name="npc">The NPC to check.</param>
+	/// <returns>true if the NPC is a worm; otherwise, false.</returns>
+	public static bool IsWorm(this NPC npc) {
+		return npc.type switch {
+			NPCID.EaterofWorldsHead => true,
+			NPCID.EaterofWorldsBody => true,
+			NPCID.EaterofWorldsTail => true,
+			NPCID.LeechHead => true,
+			NPCID.LeechBody => true,
+			NPCID.LeechTail => true,
+			NPCID.DiggerHead => true,
+			NPCID.DiggerBody => true,
+			NPCID.DiggerTail => true,
+			NPCID.DevourerHead => true,
+			NPCID.DevourerBody => true,
+			NPCID.DevourerTail => true,
+			NPCID.DuneSplicerHead => true,
+			NPCID.DuneSplicerBody => true,
+			NPCID.DuneSplicerTail => true,
+			NPCID.GiantWormHead => true,
+			NPCID.GiantWormBody => true,
+			NPCID.GiantWormTail => true,
+			NPCID.TombCrawlerHead => true,
+			NPCID.TombCrawlerBody => true,
+			NPCID.TombCrawlerTail => true,
+			NPCID.SeekerHead => true,
+			NPCID.SeekerBody => true,
+			NPCID.SeekerTail => true,
+			NPCID.SolarCrawltipedeHead => true,
+			NPCID.SolarCrawltipedeBody => true,
+			NPCID.SolarCrawltipedeTail => true,
+			NPCID.WyvernHead => true,
+			NPCID.WyvernBody => true,
+			NPCID.WyvernBody2 => true,
+			NPCID.WyvernBody3 => true,
+			NPCID.WyvernTail => true,
+			NPCID.BoneSerpentHead => true,
+			NPCID.BoneSerpentBody => true,
+			NPCID.BoneSerpentTail => true,
+			NPCID.BloodEelHead => true,
+			NPCID.BloodEelBody => true,
+			NPCID.BloodEelTail => true,
+			NPCID.CultistDragonHead => true,
+			NPCID.CultistDragonBody1 => true,
+			NPCID.CultistDragonBody2 => true,
+			NPCID.CultistDragonBody3 => true,
+			NPCID.CultistDragonBody4 => true,
+			NPCID.CultistDragonTail => true,
+			_ => false,
+		};
+	}
+	
+	/// <summary>
+	/// Scales the given damage value up or down depending on the current difficulty.
+	/// </summary>
+	/// <param name="damage">The amount of damage to scale.</param>
+	/// <returns>The scaled damage value.</returns>
+	/// <remarks>
+	/// In Master Mode, the damage is tripled. In Expert Mode, the damage is doubled.
+	/// Otherwise, the original damage value is returned.
+	/// </remarks>
+	public static int ScaleDamageForDifficulty(int damage) {
+		if (Main.masterMode) {
+			return damage * 3;
+		}
+
+		if (Main.expertMode) {
+			return damage * 2;
+		}
+
+		return damage;
+	}
 }
