@@ -82,4 +82,33 @@ public static class RandomHelpers
 	public static Vector2 NextVectorWithinNormalized(this UnifiedRandom rand, Rectangle rect) {
 		return NextVectorWithin(rand, rect with { X = 0, Y = 0 });
 	}
+
+	/// <summary>
+	/// Generates a random count by recursively sampling from a given chance until either the chance is missed or the maximum count is reached.
+	/// </summary>
+	/// <param name="rand">The UnifiedRandom to use</param>
+	/// <param name="chance">The chance to sample from</param>
+	/// <param name="maxCount">The maximum count to return. Defaults to 100.</param>
+	/// <returns>A random count between 0 and maxCount, inclusive</returns>
+	public static int NextRecursiveCount(this UnifiedRandom rand, float chance, int maxCount = 100) {
+		for (int i = 0; i < maxCount; i++) {
+			if (rand.NextFloat() > chance) {
+				return i;
+			}	
+		}
+		
+		return maxCount;
+	}
+
+	/// <summary>
+	/// Gets a random element from the WeightedRandom, removes it from the WeightedRandom, and returns it.
+	/// </summary>
+	/// <typeparam name="T">The type of the elements in the WeightedRandom</typeparam>
+	/// <param name="weightedRandom">The WeightedRandom to get from and remove from</param>
+	/// <returns>The random element</returns>
+	public static T GetAndRemove<T>(this WeightedRandom<T> weightedRandom) {
+		var result = weightedRandom.Get();
+		weightedRandom.elements.RemoveAll(x => x.Item1.Equals(result));
+		return result;
+	}
 }
