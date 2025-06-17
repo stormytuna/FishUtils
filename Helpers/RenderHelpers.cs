@@ -10,14 +10,15 @@ public static class RenderHelpers
 	/// </summary>
 	/// <param name="projectile">The projectile to get the draw data for.</param>
 	/// <param name="lightColor">The light color to use when drawing.</param>
+	/// <param name="horizontalFrames">The number of horizontal frames in the texture. Defaults to 1.</param>
 	/// <returns>The draw data for the projectile.</returns>
-	public static DrawData GetCommonDrawData(this Projectile projectile, Color lightColor) {
+	public static DrawData GetCommonDrawData(this Projectile projectile, Color lightColor, int horizontalFrames = 1) {
 		var texture = TextureAssets.Projectile[projectile.type].Value;
-		var sourceRect = texture.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame);
+		var sourceRect = texture.Frame(horizontalFrames, Main.projFrames[projectile.type], 0, projectile.frame);
 		return new DrawData {
 			texture = texture,
 			position = (projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY)).Floor(),
-			sourceRect = texture.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame),
+			sourceRect = sourceRect,
 			origin = sourceRect.Size() / 2f,
 			color = projectile.GetAlpha(lightColor),
 			rotation = projectile.rotation,
