@@ -1,3 +1,5 @@
+using Terraria;
+
 namespace FishUtils.Helpers;
 
 public static class ProjectileHelpers
