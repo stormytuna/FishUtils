@@ -14,9 +14,11 @@ public static class RenderHelpers
 	/// <param name="lightColor">The light color to use when drawing.</param>
 	/// <param name="horizontalFrames">The number of horizontal frames in the texture. Defaults to 1.</param>
 	/// <returns>The draw data for the projectile.</returns>
-	public static DrawData GetCommonDrawData(this Projectile projectile, Color lightColor, int horizontalFrames = 1) {
-		Microsoft.Xna.Framework.Graphics.Texture2D texture = TextureAssets.Projectile[projectile.type].Value;
-		Rectangle sourceRect = texture.Frame(horizontalFrames, Main.projFrames[projectile.type], 0, projectile.frame);
+	public static DrawData GetCommonDrawData(this Projectile projectile, Color lightColor, int horizontalFramesTotal = 1, int horizontalFrame = 0) {
+		Texture2D texture = TextureAssets.Projectile[projectile.type].Value;
+		
+		Rectangle sourceRect = texture.Frame(horizontalFramesTotal, Main.projFrames[projectile.type], horizontalFrame, projectile.frame);
+		
 		return new DrawData {
 			texture = texture,
 			position = (projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY)).Floor(),
