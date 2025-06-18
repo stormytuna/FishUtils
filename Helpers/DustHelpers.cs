@@ -36,7 +36,7 @@ public class DustHelpers
 			newDust.noLightEmittence = noLightEmittance;
 		}
 	}
-	
+
 
 	/// <inheritdoc cref="MakeDustExplosion(Microsoft.Xna.Framework.Vector2,float,int,int,float,float,int,int,float,float,bool,bool,bool)"/>
 	public static void MakeDustExplosion(Vector2 position, float spawnRadius, int dustType, int amount, float minSpeed,
@@ -53,7 +53,7 @@ public class DustHelpers
 		MakeDustExplosion(position, spawnRadius, dustType, amount, minSpeed, maxSpeed, minAlpha, maxAlpha, scale, scale,
 			noGravity, noLight, noLightEmmittance);
 	}
-	
+
 	/// <summary>
 	/// Creates an explosion effect by spawning a specified number of dust particles at a given position.
 	/// </summary>
@@ -72,13 +72,13 @@ public class DustHelpers
 
 		return dusts;
 	}
-	
+
 	/// <inheritdoc cref="MakeDustExplosion(Vector2, float, int, int)"/>
 	public static List<Dust> MakeDustExplosion<TModDust>(Vector2 position, float spawnRadius, int amount)
 		where TModDust : ModDust {
 		return MakeDustExplosion(position, spawnRadius, ModContent.DustType<TModDust>(), amount);
 	}
-	
+
 	/// <summary>
 	/// Creates a visual effect of a lightning bolt by spawning dust particles along a path
 	/// between the source and destination points.
@@ -93,7 +93,7 @@ public class DustHelpers
 	public static List<Dust> MakeLightningDust(Vector2 source, Vector2 dest, int dustId, float scale, float sway = 80f,
 		float jagednessNumerator = 1f) {
 		List<Vector2> dustPoints = MathHelpers.CreateLightningBolt(source, dest, sway, jagednessNumerator);
-		
+
 		List<Dust> dustList = new(dustPoints.Count);
 
 		for (int i = 1; i < dustPoints.Count; i++) {
@@ -111,7 +111,7 @@ public class DustHelpers
 				dustList.Add(d);
 			}
 		}
-		
+
 		return dustList;
 	}
 

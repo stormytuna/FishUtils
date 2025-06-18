@@ -8,7 +8,7 @@ public static class ProjectileHelpers
 		index = 0;
 		totalMembersInGroup = 0;
 
-		foreach (var otherProj in Main.ActiveProjectiles) {
+		foreach (Projectile otherProj in Main.ActiveProjectiles) {
 			if (otherProj.owner == projectile.owner && otherProj.type == projectile.type) {
 				if (projectile.whoAmI > otherProj.whoAmI) {
 					index++;
@@ -17,5 +17,5 @@ public static class ProjectileHelpers
 				totalMembersInGroup++;
 			}
 		}
-	}	
+	}
 }

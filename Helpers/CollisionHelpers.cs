@@ -24,13 +24,13 @@ public static class CollisionHelpers
 	/// <returns>The new velocity of the entity after bouncing off the tile.</returns>
 	public static Vector2 BounceOffTiles(this Vector2 currentVelocity, Vector2 oldVelocity, float xMult = 1f, float yMult = 1f) {
 		Vector2 result = currentVelocity;
-		
+
 		if (currentVelocity.X != oldVelocity.X) {
-			result.X = -oldVelocity.X * xMult;	
+			result.X = -oldVelocity.X * xMult;
 		}
 
 		if (currentVelocity.Y != oldVelocity.Y) {
-			result.Y = -oldVelocity.Y * yMult;	
+			result.Y = -oldVelocity.Y * yMult;
 		}
 
 		return result;

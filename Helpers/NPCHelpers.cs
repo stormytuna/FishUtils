@@ -29,7 +29,7 @@ public static class NPCHelpers
 
 		return npcs;
 	}
-	
+
 	/// <summary>
 	/// Finds a random NPC within a certain range of a position.
 	/// </summary>
@@ -48,7 +48,7 @@ public static class NPCHelpers
 
 		return null;
 	}
-	
+
 	/// <summary>
 	/// Finds the closest NPC within a certain range of a position.
 	/// </summary>
@@ -92,7 +92,7 @@ public static class NPCHelpers
 		if (Main.invasionType != InvasionID.None) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -104,7 +104,7 @@ public static class NPCHelpers
 	public static bool CountsAsBoss(this NPC npc) {
 		return npc.boss || NPCID.Sets.DangerThatPreventsOtherDangers[npc.type];
 	}
-	
+
 	/// <summary>
 	/// Determines whether the specified NPC is a worm.
 	/// </summary>
@@ -159,7 +159,7 @@ public static class NPCHelpers
 			_ => false,
 		};
 	}
-	
+
 	/// <summary>
 	/// Scales the given damage value up or down depending on the current difficulty.
 	/// </summary>

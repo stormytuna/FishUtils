@@ -13,5 +13,5 @@ public static class PlayerHelpers
 	/// <returns>true if the ammo was found, false otherwise.</returns>
 	public static bool TryGetWeaponAmmo(this Player player, Item item, out int usedAmmoItemId) {
 		return player.PickAmmo(item, out _, out _, out _, out _, out usedAmmoItemId, true);
-	}	
+	}
 }

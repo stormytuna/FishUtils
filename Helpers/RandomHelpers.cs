@@ -25,7 +25,7 @@ public static class RandomHelpers
 
 		return normal;
 	}
-	
+
 	/// <summary>
 	/// Generates a list of radian angles that are evenly spaced between 0 and 2Pi, with optional overlap and random offset.
 	/// </summary>
@@ -53,7 +53,7 @@ public static class RandomHelpers
 
 		return angles;
 	}
-	
+
 	/// <summary>
 	/// Generates a random radian value between 0 and 2Pi
 	/// </summary>
@@ -62,7 +62,7 @@ public static class RandomHelpers
 	public static float NextRadian(this UnifiedRandom rand) {
 		return rand.NextFloat(MathHelper.TwoPi);
 	}
-	
+
 	/// <summary>
 	/// Generates a random point within the given rectangle
 	/// </summary>
@@ -72,7 +72,7 @@ public static class RandomHelpers
 	public static Vector2 NextVectorWithin(this UnifiedRandom rand, Rectangle rect) {
 		return new Vector2(rect.Left + rand.Next(rect.Width + 1), rect.Top + rand.Next(rect.Height + 1));
 	}
-	
+
 	/// <summary>
 	/// Generates a random point within the given rectangle, normalized so that the rectangle's top-left corner is at (0,0)
 	/// </summary>
@@ -94,9 +94,9 @@ public static class RandomHelpers
 		for (int i = 0; i < maxCount; i++) {
 			if (rand.NextFloat() > chance) {
 				return i;
-			}	
+			}
 		}
-		
+
 		return maxCount;
 	}
 
@@ -107,7 +107,7 @@ public static class RandomHelpers
 	/// <param name="weightedRandom">The WeightedRandom to get from and remove from</param>
 	/// <returns>The random element</returns>
 	public static T GetAndRemove<T>(this WeightedRandom<T> weightedRandom) {
-		var result = weightedRandom.Get();
+		T result = weightedRandom.Get();
 		weightedRandom.elements.RemoveAll(x => x.Item1.Equals(result));
 		return result;
 	}

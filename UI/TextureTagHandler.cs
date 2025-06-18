@@ -11,24 +11,20 @@ namespace FishUtils.UI;
 
 public class TextureTagHandler : ITagHandler, ILoadable
 {
-	private class TextureSnippet : TextSnippet
+	private class TextureSnippet(string assetPath) : TextSnippet
 	{
-		private Asset<Texture2D> _asset;
-
-		public TextureSnippet(string assetPath) {
-			_asset = ModContent.Request<Texture2D>(assetPath);
-		}
+		private readonly Asset<Texture2D> _asset = ModContent.Request<Texture2D>(assetPath);
 
 		public override bool UniqueDraw(bool justCheckingString, out Vector2 size, SpriteBatch spriteBatch, Vector2 position = new(), Color color = new(), float scale = 1) {
 			float textureSize = scale * 24f;
-			var rect = new Rectangle(0, 0, _asset.Width(), _asset.Height());
+			Rectangle rect = new(0, 0, _asset.Width(), _asset.Height());
 			if (rect.Width * scale > textureSize || rect.Height * scale > textureSize) {
 				scale = rect.Width <= rect.Height ? textureSize / rect.Height : textureSize / rect.Width;
 			}
-			
-			var drawPos = position + (rect.Size() * scale * 0.5f);
+
+			Vector2 drawPos = position + (rect.Size() * scale * 0.5f);
 			if (!justCheckingString && color != Color.Black) {
-				spriteBatch.Draw(_asset.Value, drawPos, rect, Color.White, 0f, rect.Size() / 2f, scale, SpriteEffects.None, 0f);	
+				spriteBatch.Draw(_asset.Value, drawPos, rect, Color.White, 0f, rect.Size() / 2f, scale, SpriteEffects.None, 0f);
 			}
 
 			size = rect.Size() * scale;
@@ -39,7 +35,7 @@ public class TextureTagHandler : ITagHandler, ILoadable
 			return _asset.Width() * Scale;
 		}
 	}
-	
+
 	TextSnippet ITagHandler.Parse(string text, Color baseColor, string options) {
 		return new TextureSnippet(text) {
 			Text = CreateTag(text),
@@ -56,7 +52,7 @@ public class TextureTagHandler : ITagHandler, ILoadable
 		if (Environment.GetEnvironmentVariable("FISHUTILS_REGISTERED_TEXTURE_TAG_HANDLER") is not null) {
 			return;
 		};
-		
+
 		Environment.SetEnvironmentVariable("FISHUTILS_REGISTERED_TEXTURE_TAG_HANDLER", "true");
 		ChatManager.Register<TextureTagHandler>("tunatex");
 	}

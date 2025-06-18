@@ -58,7 +58,7 @@ public static class MathHelpers
 
 		return results;
 	}
-	
+
 	// Adapted from The Story of Red Cloud https://github.com/timhjersted/tsorcRevamp/blob/aa4dc019218f94757f616dd88b9e2e57af539011/tsorcRevampUtils.cs#L957
 	/// <summary>
 	/// Smooth homing on a target, optionally taking into account the target's velocity.
@@ -70,7 +70,7 @@ public static class MathHelpers
 	/// <param name="targetVelocity">The velocity of the target to take into account. Optional.</param>
 	public static void SmoothHoming(Entity actor, Vector2 target, float acceleration, float topSpeed, Vector2? targetVelocity = null) {
 		Vector2 targetVel = targetVelocity ?? Vector2.Zero;
-		
+
 		Vector2 toTarget = actor.DirectionTo(target);
 		float distanceToTarget = actor.Distance(target);
 		Vector2 velocityTarget = targetVel - actor.velocity;
@@ -82,7 +82,7 @@ public static class MathHelpers
 		Vector2 impactPos = target + (velocityTarget * eta);
 
 		Vector2 fixedAcceleration = actor.DirectionTo(impactPos) * acceleration;
-		
+
 		actor.velocity += fixedAcceleration;
 
 		if (actor.velocity.Length() > topSpeed) {
