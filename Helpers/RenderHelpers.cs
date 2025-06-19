@@ -21,7 +21,7 @@ public static class RenderHelpers
 		
 		return new DrawData {
 			texture = texture,
-			position = (projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY)).Floor(),
+			position = projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY),
 			sourceRect = sourceRect,
 			origin = sourceRect.Size() / 2f,
 			color = projectile.GetAlpha(lightColor),
