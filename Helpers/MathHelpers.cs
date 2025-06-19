@@ -61,14 +61,16 @@ public static class MathHelpers
 
 	// Adapted from The Story of Red Cloud https://github.com/timhjersted/tsorcRevamp/blob/aa4dc019218f94757f616dd88b9e2e57af539011/tsorcRevampUtils.cs#L957
 	/// <summary>
-	/// Smooth homing on a target, optionally taking into account the target's velocity.
+	/// Smooth homing on a target, optionally taking into account the target's velocity or adding a buffer zone.
 	/// </summary>
 	/// <param name="actor">The entity doing the homing.</param>
 	/// <param name="target">The target to home in on.</param>
 	/// <param name="acceleration">The maximum acceleration to apply to the actor.</param>
 	/// <param name="topSpeed">The maximum speed the actor will reach.</param>
 	/// <param name="targetVelocity">The velocity of the target to take into account. Optional.</param>
-	public static void SmoothHoming(Entity actor, Vector2 target, float acceleration, float topSpeed, Vector2? targetVelocity = null) {
+	/// <param name="bufferDistance">The distance at which the actor will slow down. Optional.</param>
+	/// <param name="bufferStrength">The strength of the slow-down. Optional.</param>
+	public static void SmoothHoming(Entity actor, Vector2 target, float acceleration, float topSpeed, Vector2? targetVelocity = null, float bufferDistance = 0f, float bufferStrength = 0f) {
 		Vector2 targetVel = targetVelocity ?? Vector2.Zero;
 
 		Vector2 toTarget = actor.DirectionTo(target);
@@ -88,6 +90,10 @@ public static class MathHelpers
 		if (actor.velocity.Length() > topSpeed) {
 			actor.velocity.Normalize();
 			actor.velocity *= topSpeed;
+		}
+
+		if (bufferDistance > 0 && distanceToTarget < bufferDistance) {
+			actor.velocity *= float.Pow(distanceToTarget / bufferDistance, bufferStrength);
 		}
 	}
 }
