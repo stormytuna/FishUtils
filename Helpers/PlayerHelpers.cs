@@ -16,6 +16,11 @@ public static class PlayerHelpers
 		return player.PickAmmo(item, out _, out _, out _, out _, out usedAmmoItemId, true);
 	}
 
+	/// <summary>
+	/// Gets the number of unique minion types the player has currently spawned. This is determined by counting the number of unique projectile types that have <see cref="Projectile.minion"/> and <see cref="Projectile.minionSlots"/> set.
+	/// </summary>
+	/// <param name="player">The player to count the minions for.</param>
+	/// <returns>The number of unique minion types.</returns>
 	public static int GetNumUniqueMinions(this Player player) {
 		int count = 0;
 		List<int> minionTypes = new();
@@ -28,5 +33,13 @@ public static class PlayerHelpers
 		}
 		
 		return count;
+	}
+
+	/// <summary>
+	/// Applies a standard invincibility time to the player, taking into account <see cref="Player.longInvince"/>.
+	/// </summary>
+	/// <param name="player">The player to apply the invincibility time to.</param>
+	public static void ApplyStandardImmuneTime(this Player player) {
+		player.SetImmuneTimeForAllTypes(player.longInvince ? 120 : 80);
 	}
 }
