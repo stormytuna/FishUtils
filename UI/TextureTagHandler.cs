@@ -75,8 +75,13 @@ public class TextureTagHandler : ITagHandler, ILoadable
 		};
 	}
 
-	public static string CreateTag(string assetPath) {
-		return $"[tunatex:{assetPath}]";
+	public static string CreateTag(string assetPath, Color? color = null) {
+		string colorOptions = "";
+		if (color is not null) {
+			colorOptions = "/c" + color.Value.R + "," + color.Value.G + "," + color.Value.B + "," + color.Value.A;
+		}
+		
+		return $"[tunatex{colorOptions}:{assetPath}]";
 	}
 
 	public void Load(Mod mod) {
