@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Terraria;
 
 namespace FishUtils.Helpers;
@@ -13,5 +14,19 @@ public static class PlayerHelpers
 	/// <returns>true if the ammo was found, false otherwise.</returns>
 	public static bool TryGetWeaponAmmo(this Player player, Item item, out int usedAmmoItemId) {
 		return player.PickAmmo(item, out _, out _, out _, out _, out usedAmmoItemId, true);
+	}
+
+	public static int GetNumUniqueMinions(this Player player) {
+		int count = 0;
+		List<int> minionTypes = new();
+		
+		foreach (var proj in Main.ActiveProjectiles) {
+			if (proj.active && proj.owner == player.whoAmI && proj.minion && proj.minionSlots > 0f && !minionTypes.Contains(proj.type)) {
+				minionTypes.Add(proj.type);
+				count++;
+			}
+		}
+		
+		return count;
 	}
 }
