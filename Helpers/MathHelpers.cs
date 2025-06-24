@@ -96,4 +96,67 @@ public static class MathHelpers
 			actor.velocity *= float.Pow(distanceToTarget / bufferDistance, bufferStrength);
 		}
 	}
+
+	/// <summary>
+	/// Smoothly rotates from <paramref name="currentAngle"/> to <paramref name="targetAngle"/>,
+	/// but never moves more than <paramref name="maxStep"/> in a single step.
+	/// </summary>
+	/// <param name="currentAngle">The current angle.</param>
+	/// <param name="targetAngle">The target angle.</param>
+	/// <param name="maxStep">The maximum amount to step in a single step.</param>
+	/// <returns>The new angle.</returns>
+	public static float SmoothRotate(float currentAngle, float targetAngle, float maxStep) {
+		currentAngle = MathHelper.WrapAngle(currentAngle);
+		targetAngle = MathHelper.WrapAngle(targetAngle);
+		float delta = MathHelper.WrapAngle(targetAngle - currentAngle);
+		delta = float.Clamp(delta, -maxStep, maxStep);
+		return MathHelper.WrapAngle(currentAngle + delta);
+	}
+
+	/// <summary>
+	/// Normalizes a vector to length 1, or returns <see cref="Vector2.Zero"/> if the vector has NaNs.
+	/// </summary>
+	/// <param name="vector">The vector to normalize.</param>
+	/// <returns>The normalized vector.</returns>
+	public static Vector2 Normalized(this Vector2 vector) {
+		return vector.SafeNormalize(Vector2.Zero);
+	}
+
+	/// <summary>
+	/// Returns the midpoint of two vectors.
+	/// </summary>
+	/// <param name="vec1">The first vector.</param>
+	/// <param name="vec2">The second vector.</param>
+	/// <returns>The midpoint of the two vectors.</returns>
+	public static Vector2 MidPoint(Vector2 vec1, Vector2 vec2) {
+		return (vec1 + vec2) / 2f;
+	}
+
+	/// <summary>
+	/// Clamps the given angle to be within the specified minimum and maximum range,
+	/// taking into account angle wrapping at the boundaries.
+	/// </summary>
+	/// <param name="angle">The angle to clamp, in radians.</param>
+	/// <param name="min">The minimum angle of the range, in radians.</param>
+	/// <param name="max">The maximum angle of the range, in radians.</param>
+	/// <returns>The clamped angle, within the specified range.</returns>
+	public static float ClampAngle(float angle, float min, float max) {
+		angle = MathHelper.WrapAngle(angle);
+		min = MathHelper.WrapAngle(min);
+		max = MathHelper.WrapAngle(max);
+
+		if (min == max) {
+			return min;
+		}
+
+		if (min < max) {
+			return float.Clamp(angle, min, max);
+		}
+
+		if (angle > max && angle < min) {
+			return (float.Abs(angle - min) < float.Abs(angle - max)) ? min : max;
+		}
+		
+		return angle;
+	}
 }

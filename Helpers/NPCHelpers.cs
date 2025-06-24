@@ -64,8 +64,7 @@ public static class NPCHelpers
 
 		foreach (NPC npc in Main.ActiveNPCs) {
 			float distance = Vector2.Distance(npc.Center, worldPos);
-			if (!npc.CanBeChasedBy() || distance > range || distance > closestNpcDistance ||
-				ignoredNPCs.Contains(npc.whoAmI)) {
+			if (!npc.CanBeChasedBy() || distance > range || distance > closestNpcDistance || ignoredNPCs.Contains(npc.whoAmI)) {
 				continue;
 			}
 
@@ -78,6 +77,36 @@ public static class NPCHelpers
 		}
 
 		return closestNpc;
+	}
+
+	/// <summary>
+	/// Finds the furthest NPC within a certain range of a position.
+	/// </summary>
+	/// <param name="range">The range to search within.</param>
+	/// <param name="worldPos">The position to search around.</param>
+	/// <param name="checkCollision">Whether or not to care about collision between the NPC and the worldPos.</param>
+	/// <param name="ignoredNPCs">A list of NPC IDs to ignore. If null, no NPCs are ignored.</param>
+	/// <returns>The furthest NPC found, or null if none exist.</returns>
+	public static NPC FindFurthestNPC(float range, Vector2 worldPos, bool checkCollision = true, List<int> ignoredNPCs = null) {
+		ignoredNPCs ??= [];
+		NPC furthestNpc = null;
+		float furthestNpcDistance = float.NegativeInfinity;
+
+		foreach (NPC npc in Main.ActiveNPCs) {
+			float distance = Vector2.Distance(npc.Center, worldPos);
+			if (!npc.CanBeChasedBy() || distance > range || distance < furthestNpcDistance || ignoredNPCs.Contains(npc.whoAmI)) {
+				continue;
+			}
+
+			if (checkCollision && !CollisionHelpers.CanHit(npc, worldPos)) {
+				continue;
+			}
+
+			furthestNpc = npc;
+			furthestNpcDistance = distance;
+		}
+		
+		return furthestNpc;
 	}
 
 	/// <summary>
