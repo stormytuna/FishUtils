@@ -1,3 +1,6 @@
+using Terraria;
+using Terraria.ID;
+
 namespace FishUtils.Helpers;
 
 public static class ItemHelpers
