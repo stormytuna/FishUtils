@@ -8,5 +8,6 @@ public static class Consts
 	public const float TwoPi = float.Pi * 2f;
 
 	// See https://terraria.wiki.gg/wiki/Stopwatch#Notes
-	public const float UnitsPerFrameToTilesPerSecond = 11f / 15f;
+	public const float UnitsPerFrameToTilesPerSecond = 11f / 15f; // TODO: this is wrong i think
+	public const float UnitsPerFrameToMilesPerHour = 216000f / 42240f;
 }
