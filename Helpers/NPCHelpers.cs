@@ -131,7 +131,7 @@ public static class NPCHelpers
 	/// <param name="npc">The NPC to check.</param>
 	/// <returns>true if the NPC is a boss; otherwise, false.</returns>
 	public static bool CountsAsBoss(this NPC npc) {
-		return npc.boss || NPCID.Sets.DangerThatPreventsOtherDangers[npc.type];
+		return npc.boss || NPCID.Sets.DangerThatPreventsOtherDangers[npc.type] || npc.type is NPCID.EaterofWorldsHead or NPCID.EaterofWorldsBody or NPCID.EaterofWorldsTail;
 	}
 
 	/// <summary>
