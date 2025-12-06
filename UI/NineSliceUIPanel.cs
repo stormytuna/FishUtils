@@ -1,8 +1,12 @@
 using System;
 using FishUtils.DataStructures;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using ReLogic.Content;
+using ReLogic.Graphics;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
+using Terraria;
 
 namespace FishUtils.UI;
 /// <summary>
@@ -18,7 +22,8 @@ public class NineSliceUIPanel : UIElement
 	private Color _color;
 	private Color? _hoverColor;
 	private Color? _clickColor;
-	private bool _clicking;
+	private bool _clicking = false;
+	private bool _isHidden = false;
 	
 	public NineSliceUIPanel(Asset<Texture2D> panelTexture, Color color, Color? hoverColor = null, Color? clickColor = null) {
 		_panelTexture = panelTexture;
@@ -120,6 +125,22 @@ public class NineSliceUIPanel : UIElement
 	}
 	
 	#endregion
+
+	public void Hide() {
+		_isHidden = true;
+	}
+
+	public void Show() {
+		_isHidden = false;
+	}
+
+	public override void Draw(SpriteBatch spriteBatch) {
+		if (_isHidden) {
+			return;
+		}
+
+		base.Draw(spriteBatch);
+	}
 	
 	protected override void DrawSelf(SpriteBatch spriteBatch) {
 		base.DrawSelf(spriteBatch);
