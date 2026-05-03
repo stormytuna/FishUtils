@@ -24,7 +24,9 @@ public static class ItemHelpers
 		return item.damage > 0 && !isTool;
 	}
 	
+	/// <summary>
 	/// Checks if the given item is a mana pickup.
+	/// </summary>
 	/// <returns>true if the item is a mana pickup, false otherwise.</returns>
 	public static bool IsManaPickup(this Item item) {
 		return item.type is ItemID.Star or ItemID.SoulCake or ItemID.SugarPlum;	
