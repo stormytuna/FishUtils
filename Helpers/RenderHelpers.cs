@@ -30,4 +30,16 @@ public static class RenderHelpers
 			scale = new Vector2(projectile.scale),
 		};
 	}
+
+	/// <summary>
+	/// Checks whether a vector is on screen.
+	/// </summary>
+	/// <param name="position">The vector.</param>
+	/// <param name="padding">Extra padding around the screen's position to consider as on-screen.</param>
+	/// <returns>Whether the vector is on screen.</returns>
+	public static bool OnScreen(this Vector2 position, int padding = 480) {
+		var screenBounds = new Rectangle((int)Main.screenPosition.X,  (int)Main.screenPosition.Y, Main.screenWidth, Main.screenHeight);
+		screenBounds.Inflate(padding, padding);
+		return screenBounds.Intersects(new Rectangle((int)position.X, (int)position.Y, 1, 1));
+	}
 }
