@@ -28,6 +28,7 @@ public static class RenderHelpers
 			color = projectile.GetAlpha(lightColor),
 			rotation = projectile.rotation,
 			scale = new Vector2(projectile.scale),
+			effect = projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
 		};
 	}
 

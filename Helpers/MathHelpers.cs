@@ -95,6 +95,10 @@ public static class MathHelpers
 		if (bufferDistance > 0 && distanceToTarget < bufferDistance) {
 			actor.velocity *= float.Pow(distanceToTarget / bufferDistance, bufferStrength);
 		}
+
+		if (actor.velocity.HasNaNs()) {
+			actor.velocity = actor.oldVelocity;
+		}
 	}
 
 	/// <summary>
